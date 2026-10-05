@@ -88,15 +88,22 @@ html,body{
 }
 .names .amp{color:var(--gold); font-size:38px; margin:0 6px;}
 
-.couple-photo{margin:18px auto 6px; max-width:320px;}
+.couple-photo{
+  margin:18px auto 6px; max-width:440px;
+  display:flex; justify-content:center; align-items:center; gap:14px;
+}
 .couple-photo img{
-  width:100%;
+  width:calc(50% - 7px);
   display:block;
   border-radius:8px;
-  border:6px solid #fffdf9;
+  border:5px solid #fffdf9;
   box-shadow:0 10px 26px rgba(74,51,36,0.28);
-  transform:rotate(-1.2deg);
+  transform:rotate(-2deg);
 }
+.couple-photo img + img{transform:rotate(2deg); margin-top:18px;}
+.info-item.endereco::before{display:none;}
+.mapa{margin-top:14px; font-size:16px;}
+.mapa a{color:var(--olive-dark); font-weight:600; text-decoration:underline; text-underline-offset:3px;}
 
 .divider{
   display:flex; align-items:center; justify-content:center; gap:10px;
@@ -342,6 +349,67 @@ hr.sep{
 .admin-panel .empty{text-align:center; font-style:italic; color:var(--brown-soft);}
 .admin-actions{display:flex; justify-content:center; gap:8px; margin-top:14px; flex-wrap:wrap;}
 
+/* ---- lista de presentes (discreta, no fim da página) ---- */
+[hidden]{display:none !important;}
+.presentes-toggle{
+  margin-top:26px;
+  background:none; border:none;
+  font-family:'Playfair Display', serif; font-size:17px; font-weight:600;
+  color:var(--olive-dark);
+  text-decoration:underline;
+  text-underline-offset:4px;
+  cursor:pointer;
+}
+.presentes{
+  margin-top:16px;
+  text-align:left;
+  background:var(--paper-2);
+  border:1px solid rgba(122,92,67,0.3);
+  border-radius:6px;
+  padding:20px 18px;
+}
+.presentes .texto{font-style:italic; font-size:16px; line-height:1.5; margin-bottom:14px; text-align:center;}
+.pix{text-align:center; margin-bottom:16px;}
+.pix p{font-size:15px; font-style:italic; color:var(--brown); margin-bottom:10px;}
+.pix img{width:180px; max-width:70%; border-radius:6px; background:#fff; padding:6px;}
+.presentes ul{list-style:none; border-top:1px solid rgba(122,92,67,0.18);}
+.presentes li{
+  display:flex; justify-content:space-between; align-items:center; gap:12px;
+  padding:9px 0;
+  border-bottom:1px solid rgba(122,92,67,0.18);
+  font-size:16px;
+}
+.presentes li button{
+  background:none;
+  border:1px solid var(--olive);
+  color:var(--olive-dark);
+  padding:5px 12px;
+  border-radius:5px;
+  font-family:inherit; font-size:14px;
+  cursor:pointer;
+  white-space:nowrap;
+}
+.presentes li button:hover{background:var(--olive); color:#fff;}
+.presentes li button:disabled{opacity:.6; cursor:default;}
+.presentes li{flex-wrap:wrap;}
+.presentes li form{display:flex; gap:6px; width:100%;}
+.presentes li form input{
+  flex:1; min-width:0;
+  font-family:inherit; font-size:15px;
+  padding:6px 10px;
+  border:1.5px solid rgba(122,92,67,0.4);
+  border-radius:5px;
+  background:#fffdf9; color:var(--ink);
+}
+.presentes li form input:focus{outline:none; border-color:var(--gold);}
+.presentes li form button{
+  background:var(--olive-dark); border:none; color:#fff;
+  padding:6px 12px; border-radius:5px;
+  font-family:inherit; font-size:14px; cursor:pointer;
+}
+.presentes li form button.cancelar{background:none; color:var(--brown); border:1px solid var(--brown-soft);}
+.presentes .vazio{text-align:center; font-style:italic; color:var(--brown); padding:8px 0;}
+
 @media (max-width:480px){
   .card{padding:38px 20px 34px;}
   .names{font-size:48px;}
@@ -364,7 +432,8 @@ hr.sep{
       <div class="names">Felipe <span class="amp">&amp;</span> Beatriz</div>
 
       <div class="couple-photo">
-        <img src="casal.jpg" alt="Felipe e Beatriz com a cachorrinha">
+        <img src="casal.jpg" alt="Felipe e Beatriz com a ultrassom do bebê">
+        <img src="casal-2.jpg" alt="Felipe e Beatriz sorrindo juntos">
       </div>
 
       <div class="divider">
@@ -384,11 +453,13 @@ hr.sep{
           <svg viewBox="0 0 24 24" fill="none" stroke="#5E86A8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
           <div class="lbl" id="info-hora"></div>
         </div>
-        <div class="info-item">
+        <div class="info-item endereco">
           <svg viewBox="0 0 24 24" fill="none" stroke="#C77690" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
           <div class="lbl" id="info-local"></div>
         </div>
       </div>
+
+      <p class="mapa"><a id="mapa-link" href="https://share.google/EUYUsEdzNT5vVv2yw" target="_blank" rel="noopener">📍 Abrir endereço no mapa</a></p>
 
       <hr class="sep">
 
@@ -415,10 +486,6 @@ hr.sep{
           <textarea id="nomes" rows="3" placeholder="Ex.: Maria Silva&#10;João Silva" maxlength="600" autocomplete="name"></textarea>
           <small>Se forem mais pessoas, coloque um nome por linha (com você incluído).</small>
         </div>
-        <div class="field">
-          <label for="recado">Recado para os noivos <span style="font-weight:400">(opcional)</span></label>
-          <textarea id="recado" rows="2" maxlength="300" placeholder="Um carinho, uma mensagem para os noivos…"></textarea>
-        </div>
         <button class="btn" type="submit" id="btn-enviar">Confirmar presença</button>
         <div class="error-msg" id="erro"></div>
       </form>
@@ -429,6 +496,20 @@ hr.sep{
       </div>
 
       <div class="footer-note">Sua presença é o nosso maior presente. 🤍</div>
+
+      <button class="presentes-toggle" type="button" id="presentes-toggle" aria-expanded="false" aria-controls="presentes-box">lista de presentes</button>
+      <div class="presentes" id="presentes-box" hidden>
+        <p class="texto">Esta lista foi feita a pedido de algumas pessoas que nos perguntaram. Mas não se apeguem a ela: o que mais nos importa é a sua presença. 🤍</p>
+
+        <ul id="presentes-lista"></ul>
+        <div class="vazio" id="presentes-vazio" hidden>Todos os presentes já foram escolhidos. Muito obrigado! 💛</div>
+        <div class="error-msg" id="presentes-erro"></div>
+
+        <div class="pix">
+          <p>Se preferir presentear em Pix, segue o QR Code:</p>
+          <img src="PIX.png" alt="QR Code para Pix">
+        </div>
+      </div>
 
       <button class="admin-link" type="button" id="admin-toggle">área dos noivos</button>
       <div class="admin-panel" id="admin-panel">
@@ -452,7 +533,8 @@ hr.sep{
 const CONFIG = {
   // Data e hora do evento (fuso de Brasília, -03:00). Formato: AAAA-MM-DDTHH:MM:00-03:00
   DATA_EVENTO: "2026-10-17T13:00:00-03:00",
-  LOCAL: "Local a definir",          // ex.: "Espaço Villa Verde — São Paulo"
+  LOCAL: "R. Maria Vacari de Souza, 114 — Jardim Roberto, Osasco – SP",
+  MAPA_URL: "https://share.google/EUYUsEdzNT5vVv2yw",
   INTRO: "Estamos preparando um dia muito especial e queremos você com a gente para celebrar o nosso casamento e descobrir juntos o sexo do nosso bebê.",
 
   // URL do Web App do Google Apps Script (veja LEIA-ME.md).
@@ -474,6 +556,7 @@ const MODO_TESTE = !CONFIG.SCRIPT_URL;
 (function fillInfo(){
   $("intro").textContent = CONFIG.INTRO;
   $("info-local").textContent = CONFIG.LOCAL;
+  $("mapa-link").href = CONFIG.MAPA_URL;
   if (isNaN(EVENTO)) return;
   const dia = EVENTO.toLocaleDateString("pt-BR", {day:"2-digit", month:"long", year:"numeric", timeZone:"America/Sao_Paulo"});
   const hora = EVENTO.toLocaleTimeString("pt-BR", {hour:"2-digit", minute:"2-digit", timeZone:"America/Sao_Paulo"}).replace(":", "h");
@@ -520,23 +603,25 @@ async function chamarScript(payload){
   return data;
 }
 
-async function salvarConfirmacao(nomes, recado){
+async function salvarConfirmacao(nomes){
   if (MODO_TESTE){
     const lista = JSON.parse(localStorage.getItem(LS_KEY) || "[]");
     const quando = new Date().toISOString();
-    nomes.forEach((nome) => lista.push({nome, recado, quando}));
+    nomes.forEach((nome) => lista.push({nome, quando}));
     localStorage.setItem(LS_KEY, JSON.stringify(lista));
     return;
   }
-  await chamarScript({acao: "confirmar", nomes, recado});
+  await chamarScript({acao: "confirmar", nomes});
 }
 
 async function buscarLista(senha){
   if (MODO_TESTE){
     if (senha !== CONFIG.SENHA_TESTE) throw new Error("Senha incorreta.");
-    return JSON.parse(localStorage.getItem(LS_KEY) || "[]");
+    const t = lerTeste();
+    return {lista: JSON.parse(localStorage.getItem(LS_KEY) || "[]"), escolhidos: t.escolhidos};
   }
-  return (await chamarScript({acao: "listar", senha})).lista;
+  const data = await chamarScript({acao: "listar", senha});
+  return {lista: data.lista, escolhidos: data.escolhidos};
 }
 
 /* --- formulário de confirmação --- */
@@ -559,7 +644,7 @@ form.addEventListener("submit", async (e) => {
   btn.disabled = true;
   btn.textContent = "Enviando…";
   try {
-    await salvarConfirmacao(nomes, $("recado").value.trim());
+    await salvarConfirmacao(nomes);
     const primeiro = nomes[0].split(" ")[0];
     $("confirmado-txt").textContent = nomes.length > 1
       ? `Presença confirmada para ${nomes.length} pessoas! Obrigado, ${primeiro} — mal podemos esperar para ver vocês. 💛`
@@ -579,6 +664,121 @@ $("btn-outra").addEventListener("click", () => {
   $("confirmado").classList.remove("show");
   form.style.display = "";
   $("nomes").focus();
+});
+
+/* --- lista de presentes --- */
+const PRESENTES_PADRAO = [
+  "Jogo de panelas", "Jogo de Jantar", "Jogo de talheres", "Micro-ondas",
+  "Panela de arroz elétrica", "Sanduicheira/Grill", "Air Fry", "Ferro a Vapor",
+  "Aspirador de Pó", "Cafeteira"
+];
+const LS_PRESENTES = "convite-felipe-beatriz:presentes";
+
+// Só usado no modo teste (sem SCRIPT_URL).
+function lerTeste(){
+  try {
+    const salvo = JSON.parse(localStorage.getItem(LS_PRESENTES) || "null");
+    if (salvo) return salvo;
+  } catch (_){}
+  return {disponiveis: [...PRESENTES_PADRAO], escolhidos: []};
+}
+function gravarTeste(t){
+  localStorage.setItem(LS_PRESENTES, JSON.stringify(t));
+}
+
+async function listarPresentes(){
+  if (MODO_TESTE) return lerTeste().disponiveis;
+  return (await chamarScript({acao: "presentes"})).disponiveis;
+}
+
+async function reservarPresente(item, quem){
+  if (MODO_TESTE){
+    const t = lerTeste();
+    const i = t.disponiveis.indexOf(item);
+    if (i < 0) throw new Error("Este presente já foi escolhido.");
+    t.disponiveis.splice(i, 1);
+    t.escolhidos.push({nome: item, quem, quando: new Date().toISOString()});
+    gravarTeste(t);
+    return;
+  }
+  await chamarScript({acao: "reservar", item, quem});
+}
+
+function renderPresentes(itens){
+  const ul = $("presentes-lista");
+  ul.innerHTML = "";
+  $("presentes-vazio").hidden = itens.length > 0;
+  itens.forEach((nome) => {
+    const li = document.createElement("li");
+    const span = document.createElement("span");
+    span.textContent = nome;
+
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.textContent = "Eu dou este";
+
+    const form = document.createElement("form");
+    form.hidden = true;
+    const input = document.createElement("input");
+    input.type = "text";
+    input.placeholder = "Seu nome";
+    input.maxLength = 100;
+    input.autocomplete = "name";
+    const ok = document.createElement("button");
+    ok.type = "submit";
+    ok.textContent = "Confirmar";
+    const cancelar = document.createElement("button");
+    cancelar.type = "button";
+    cancelar.className = "cancelar";
+    cancelar.textContent = "voltar";
+    form.append(input, ok, cancelar);
+
+    btn.addEventListener("click", () => {
+      btn.hidden = true;
+      form.hidden = false;
+      input.focus();
+    });
+    cancelar.addEventListener("click", () => {
+      form.hidden = true;
+      btn.hidden = false;
+    });
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const quem = input.value.trim();
+      if (!quem){ input.focus(); return; }
+      escolherPresente(nome, quem, form);
+    });
+
+    li.append(span, btn, form);
+    ul.appendChild(li);
+  });
+}
+
+async function carregarPresentes(){
+  mostrarErro($("presentes-erro"), "");
+  try {
+    renderPresentes(await listarPresentes());
+  } catch (_){
+    mostrarErro($("presentes-erro"), "Não foi possível carregar a lista agora. Tente de novo em instantes.");
+  }
+}
+
+async function escolherPresente(nome, quem, form){
+  form.querySelectorAll("input, button").forEach((el) => el.disabled = true);
+  mostrarErro($("presentes-erro"), "");
+  try {
+    await reservarPresente(nome, quem);
+  } catch (err){
+    mostrarErro($("presentes-erro"), MODO_TESTE ? err.message : "Não foi possível reservar agora. Atualizamos a lista para você.");
+  }
+  await carregarPresentes();
+}
+
+$("presentes-toggle").addEventListener("click", () => {
+  const box = $("presentes-box");
+  box.hidden = !box.hidden;
+  $("presentes-toggle").setAttribute("aria-expanded", String(!box.hidden));
+  if (!box.hidden) carregarPresentes();
 });
 
 /* --- área dos noivos --- */
@@ -601,7 +801,8 @@ $("admin-login").addEventListener("submit", async (e) => {
   }
 });
 
-function renderLista(lista){
+function renderLista(dados){
+  const lista = dados.lista;
   const box = $("admin-lista");
   box.innerHTML = "";
   box.style.display = "block";
@@ -630,11 +831,37 @@ function renderLista(lista){
       const li = document.createElement("li");
       const esq = document.createElement("span");
       esq.textContent = item.nome;
-      if (item.recado){
-        const r = document.createElement("span");
-        r.className = "msg";
-        r.textContent = "“" + item.recado + "”";
-        esq.appendChild(r);
+      const quando = document.createElement("span");
+      quando.className = "when";
+      const d = new Date(item.quando);
+      quando.textContent = isNaN(d) ? "" : d.toLocaleDateString("pt-BR", {day:"2-digit", month:"2-digit"});
+      li.append(esq, quando);
+      ul.appendChild(li);
+    });
+    box.appendChild(ul);
+  }
+
+  const escolhidos = dados.escolhidos || [];
+  const titulo = document.createElement("h3");
+  titulo.style.marginTop = "18px";
+  titulo.textContent = "Presentes escolhidos";
+  box.appendChild(titulo);
+  if (!escolhidos.length){
+    const vazio = document.createElement("div");
+    vazio.className = "empty";
+    vazio.textContent = "Nenhum presente escolhido ainda.";
+    box.appendChild(vazio);
+  } else {
+    const ul = document.createElement("ul");
+    escolhidos.forEach((item) => {
+      const li = document.createElement("li");
+      const esq = document.createElement("span");
+      esq.textContent = item.nome;
+      if (item.quem){
+        const q = document.createElement("span");
+        q.className = "msg";
+        q.textContent = "dado por " + item.quem;
+        esq.appendChild(q);
       }
       const quando = document.createElement("span");
       quando.className = "when";
