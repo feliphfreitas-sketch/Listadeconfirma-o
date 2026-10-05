@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Felipe & Beatriz — Casamento + Chá Revelação</title>
+<meta name="description" content="Você é nosso convidado! Confirme sua presença no Casamento + Chá Revelação de Felipe & Beatriz.">
+<meta property="og:title" content="Felipe & Beatriz — Casamento + Chá Revelação">
+<meta property="og:description" content="Você é nosso convidado! Confirme sua presença.">
+<meta property="og:image" content="casal.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Alex+Brush&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4ECDD;
+  --paper-2:#EFE4CF;
+  --ink:#4A3324;
+  --brown:#7A5C43;
+  --brown-soft:#9C8266;
+  --olive:#748059;
+  --olive-dark:#586248;
+  --blue:#5E86A8;
+  --pink:#C77690;
+  --gold:#B08A5D;
+}
+
+*{box-sizing:border-box; margin:0; padding:0;}
+
+html,body{
+  background:#E4E0D6;
+  font-family:'Cormorant Garamond', serif;
+  font-variant-numeric:lining-nums;
+  color:var(--ink);
+}
+
+.wrap{
+  max-width:640px;
+  margin:0 auto;
+  padding:34px 18px 60px;
+}
+
+.card{
+  position:relative;
+  background:var(--paper);
+  border-radius:8px;
+  overflow:hidden;
+  box-shadow:0 18px 50px rgba(74,51,36,0.22), 0 2px 8px rgba(74,51,36,0.12);
+  padding:44px 30px 40px;
+  text-align:center;
+}
+.card::before{
+  content:"";
+  position:absolute; inset:0;
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(122,92,67,0.05) 0, transparent 40%),
+    radial-gradient(circle at 85% 75%, rgba(122,92,67,0.06) 0, transparent 45%);
+  pointer-events:none;
+}
+.frame{
+  position:absolute; inset:12px;
+  border:1.5px solid rgba(122,92,67,0.3);
+  border-radius:4px;
+  pointer-events:none;
+}
+.content{position:relative; z-index:2;}
+
+.kicker{
+  font-family:'Alex Brush', cursive;
+  color:var(--olive-dark);
+  font-size:26px;
+}
+.title{
+  font-family:'Playfair Display', serif;
+  font-weight:700;
+  font-size:24px;
+  letter-spacing:1.3px;
+  margin-top:4px;
+}
+.title .plus{color:var(--gold); margin:0 6px;}
+
+.names{
+  font-family:'Alex Brush', cursive;
+  color:var(--brown);
+  font-size:56px;
+  line-height:1;
+  margin:14px 0 6px;
+}
+.names .amp{color:var(--gold); font-size:38px; margin:0 6px;}
+
+.couple-photo{margin:18px auto 6px; max-width:320px;}
+.couple-photo img{
+  width:100%;
+  display:block;
+  border-radius:8px;
+  border:6px solid #fffdf9;
+  box-shadow:0 10px 26px rgba(74,51,36,0.28);
+  transform:rotate(-1.2deg);
+}
+
+.divider{
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  margin:14px 0 18px;
+}
+.divider .line{
+  height:1px; width:64px;
+  background:repeating-linear-gradient(90deg, var(--brown-soft) 0 6px, transparent 6px 10px);
+}
+.divider svg{width:20px; height:20px;}
+
+.intro{
+  font-style:italic;
+  font-size:18px;
+  line-height:1.55;
+  max-width:480px;
+  margin:0 auto 8px;
+}
+
+.info-row{
+  display:flex; justify-content:center;
+  flex-wrap:wrap;
+  row-gap:14px;
+  margin-top:22px;
+}
+.info-item{
+  display:flex; align-items:center; gap:8px;
+  padding:0 16px;
+  position:relative;
+}
+.info-item + .info-item::before{
+  content:"";
+  position:absolute; left:0; top:2px; bottom:2px; width:1px;
+  background:rgba(122,92,67,0.3);
+}
+.info-item svg{width:22px; height:22px; flex-shrink:0;}
+.info-item .lbl{
+  font-weight:600;
+  font-size:16px;
+  line-height:1.2;
+  text-align:left;
+}
+
+/* ---- contagem regressiva ---- */
+.section-title{
+  font-family:'Alex Brush', cursive;
+  color:var(--olive-dark);
+  font-size:30px;
+  margin-bottom:2px;
+}
+.section-sub{
+  font-size:15px;
+  font-style:italic;
+  color:var(--brown);
+  margin-bottom:20px;
+}
+.countdown{
+  display:flex; justify-content:center;
+  gap:10px; flex-wrap:wrap;
+  margin-bottom:8px;
+}
+.cbox{
+  background:var(--paper-2);
+  border:1.5px dashed var(--brown-soft);
+  border-radius:6px;
+  padding:14px 10px;
+  min-width:72px;
+}
+.cbox .num{
+  font-family:'Playfair Display', serif;
+  font-weight:700;
+  font-size:32px;
+  color:var(--ink);
+  line-height:1;
+}
+.cbox .lbl{
+  font-size:12.5px;
+  letter-spacing:0.5px;
+  color:var(--brown);
+  margin-top:4px;
+  text-transform:uppercase;
+}
+.countdown-done{
+  font-family:'Alex Brush', cursive;
+  color:var(--olive-dark);
+  font-size:30px;
+  padding:10px 0;
+}
+
+hr.sep{
+  border:none;
+  border-top:1px solid rgba(122,92,67,0.28);
+  margin:32px 0;
+}
+
+/* ---- confirmação ---- */
+.rsvp-form{max-width:420px; margin:0 auto;}
+.field{margin-bottom:16px; text-align:left;}
+.field label{
+  display:block;
+  font-size:15px;
+  font-weight:600;
+  color:var(--ink);
+  margin-bottom:6px;
+}
+.field input, .field textarea{
+  width:100%;
+  font-family:'Cormorant Garamond', serif;
+  font-size:17px;
+  padding:11px 13px;
+  border:1.5px solid rgba(122,92,67,0.4);
+  border-radius:5px;
+  background:#fffdf9;
+  color:var(--ink);
+  resize:vertical;
+}
+.field input:focus, .field textarea:focus{outline:none; border-color:var(--gold);}
+.field small{
+  display:block;
+  margin-top:5px;
+  font-size:12.5px;
+  color:var(--brown-soft);
+  font-style:italic;
+}
+
+.btn{
+  width:100%;
+  background:var(--olive-dark);
+  color:#fff;
+  border:none;
+  border-radius:5px;
+  padding:13px;
+  font-family:'Playfair Display', serif;
+  font-weight:600;
+  font-size:16px;
+  letter-spacing:0.4px;
+  cursor:pointer;
+  transition:background .2s;
+}
+.btn:hover{background:var(--olive);}
+.btn:disabled{opacity:0.6; cursor:default;}
+
+.confirm-msg{
+  display:none;
+  background:var(--paper-2);
+  border:1px solid rgba(122,92,67,0.3);
+  border-radius:6px;
+  padding:20px;
+  font-style:italic;
+  color:var(--ink);
+  font-size:17px;
+  line-height:1.5;
+}
+.confirm-msg.show{display:block;}
+.confirm-msg .again{
+  display:inline-block;
+  margin-top:12px;
+  background:none; border:none;
+  font-family:inherit; font-size:14px;
+  color:var(--brown-soft);
+  text-decoration:underline;
+  cursor:pointer;
+}
+
+.error-msg{
+  color:#a33b3b;
+  font-size:14px;
+  margin-top:8px;
+  display:none;
+}
+.error-msg.show{display:block;}
+
+.footer-note{
+  margin-top:34px;
+  font-size:14px;
+  color:var(--brown-soft);
+  font-style:italic;
+}
+
+/* ---- área dos noivos (lista oculta) ---- */
+.admin-link{
+  margin-top:18px;
+  font-size:12.5px;
+  color:var(--brown-soft);
+  opacity:.7;
+  text-decoration:underline;
+  cursor:pointer;
+  background:none;
+  border:none;
+  font-family:inherit;
+}
+.admin-panel{
+  display:none;
+  margin-top:20px;
+  text-align:left;
+  background:var(--paper-2);
+  border:1px solid rgba(122,92,67,0.3);
+  border-radius:6px;
+  padding:18px;
+}
+.admin-panel.show{display:block;}
+.admin-panel h3{
+  font-family:'Playfair Display', serif;
+  font-size:18px;
+  margin-bottom:10px;
+  text-align:center;
+}
+.admin-panel .login{display:flex; gap:8px;}
+.admin-panel .login input{
+  flex:1; min-width:0;
+  font-family:inherit; font-size:16px;
+  padding:9px 12px;
+  border:1.5px solid rgba(122,92,67,0.4);
+  border-radius:5px;
+  background:#fffdf9; color:var(--ink);
+}
+.admin-panel .login button, .admin-actions button{
+  background:none;
+  border:1px solid var(--brown-soft);
+  color:var(--brown);
+  padding:8px 16px;
+  border-radius:5px;
+  font-family:inherit;
+  font-size:14.5px;
+  cursor:pointer;
+}
+.admin-panel .login button{background:var(--olive-dark); border-color:var(--olive-dark); color:#fff;}
+.admin-panel .notice{
+  font-size:13px; font-style:italic; color:var(--brown);
+  margin-bottom:10px; text-align:center;
+}
+.admin-panel ul{list-style:none;}
+.admin-panel li{
+  padding:8px 0;
+  border-bottom:1px solid rgba(122,92,67,0.18);
+  font-size:16px;
+  display:flex; justify-content:space-between; gap:12px; align-items:baseline;
+}
+.admin-panel li:last-child{border-bottom:none;}
+.admin-panel li .when{font-size:12.5px; color:var(--brown-soft); white-space:nowrap;}
+.admin-panel li .msg{display:block; font-size:14px; font-style:italic; color:var(--brown);}
+.admin-panel .count{text-align:center; font-weight:600; margin-bottom:10px; color:var(--olive-dark);}
+.admin-panel .empty{text-align:center; font-style:italic; color:var(--brown-soft);}
+.admin-actions{display:flex; justify-content:center; gap:8px; margin-top:14px; flex-wrap:wrap;}
+
+@media (max-width:480px){
+  .card{padding:38px 20px 34px;}
+  .names{font-size:48px;}
+  .title{font-size:20px;}
+  .info-item{padding:0 12px;}
+  .cbox{min-width:64px; padding:12px 8px;}
+  .cbox .num{font-size:28px;}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="card">
+    <div class="frame"></div>
+    <div class="content">
+
+      <div class="kicker">com todo amor, celebramos</div>
+      <div class="title">CASAMENTO <span class="plus">+</span> CHÁ REVELAÇÃO</div>
+      <div class="names">Felipe <span class="amp">&amp;</span> Beatriz</div>
+
+      <div class="couple-photo">
+        <img src="casal.jpg" alt="Felipe e Beatriz com a cachorrinha">
+      </div>
+
+      <div class="divider">
+        <span class="line"></span>
+        <svg viewBox="0 0 24 24" fill="#C77690"><path d="M12 21s-7-4.6-9.3-9.1C1 8.6 2.9 5 6.3 5c2 0 3.5 1.1 4.2 2.4.3.5.9.5 1.2 0C12.4 6.1 13.9 5 15.7 5 19.1 5 21 8.6 21.3 11.9 19 16.4 12 21 12 21z"/></svg>
+        <span class="line"></span>
+      </div>
+
+      <p class="intro" id="intro"></p>
+
+      <div class="info-row">
+        <div class="info-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#748059" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+          <div class="lbl" id="info-data"></div>
+        </div>
+        <div class="info-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#5E86A8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          <div class="lbl" id="info-hora"></div>
+        </div>
+        <div class="info-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#C77690" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+          <div class="lbl" id="info-local"></div>
+        </div>
+      </div>
+
+      <hr class="sep">
+
+      <!-- contagem regressiva -->
+      <div class="section-title">Falta pouco!</div>
+      <div class="section-sub" id="countdown-sub"></div>
+      <div class="countdown" id="countdown" aria-live="off">
+        <div class="cbox"><div class="num" id="c-d">--</div><div class="lbl">dias</div></div>
+        <div class="cbox"><div class="num" id="c-h">--</div><div class="lbl">horas</div></div>
+        <div class="cbox"><div class="num" id="c-m">--</div><div class="lbl">min</div></div>
+        <div class="cbox"><div class="num" id="c-s">--</div><div class="lbl">seg</div></div>
+      </div>
+      <div class="countdown-done" id="countdown-done" style="display:none">Chegou o grande dia! 💛</div>
+
+      <hr class="sep">
+
+      <!-- confirmação de presença -->
+      <div class="section-title">Confirme sua presença</div>
+      <div class="section-sub">Conte pra gente quem vai — é rapidinho.</div>
+
+      <form class="rsvp-form" id="rsvp-form" novalidate>
+        <div class="field">
+          <label for="nomes">Nome de quem vai</label>
+          <textarea id="nomes" rows="3" placeholder="Ex.: Maria Silva&#10;João Silva" maxlength="600" autocomplete="name"></textarea>
+          <small>Se forem mais pessoas, coloque um nome por linha (com você incluído).</small>
+        </div>
+        <div class="field">
+          <label for="recado">Recado para os noivos <span style="font-weight:400">(opcional)</span></label>
+          <textarea id="recado" rows="2" maxlength="300" placeholder="Um carinho, uma mensagem para os noivos…"></textarea>
+        </div>
+        <button class="btn" type="submit" id="btn-enviar">Confirmar presença</button>
+        <div class="error-msg" id="erro"></div>
+      </form>
+
+      <div class="confirm-msg" id="confirmado" role="status">
+        <span id="confirmado-txt"></span><br>
+        <button class="again" type="button" id="btn-outra">confirmar outra pessoa</button>
+      </div>
+
+      <div class="footer-note">Sua presença é o nosso maior presente. 🤍</div>
+
+      <button class="admin-link" type="button" id="admin-toggle">área dos noivos</button>
+      <div class="admin-panel" id="admin-panel">
+        <h3>Lista de confirmados</h3>
+        <form class="login" id="admin-login">
+          <input type="password" id="admin-senha" placeholder="Senha" autocomplete="current-password">
+          <button type="submit">Entrar</button>
+        </form>
+        <div class="error-msg" id="admin-erro"></div>
+        <div id="admin-lista" style="display:none"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   CONFIGURAÇÃO — edite só este bloco
+   ============================================================ */
+const CONFIG = {
+  // Data e hora do evento (fuso de Brasília, -03:00). Formato: AAAA-MM-DDTHH:MM:00-03:00
+  DATA_EVENTO: "2026-10-17T13:00:00-03:00",
+  LOCAL: "Local a definir",          // ex.: "Espaço Villa Verde — São Paulo"
+  INTRO: "Estamos preparando um dia muito especial e queremos você com a gente para celebrar o nosso casamento e descobrir juntos o sexo do nosso bebê.",
+
+  // URL do Web App do Google Apps Script (veja LEIA-ME.md).
+  // Enquanto estiver vazio o site roda em MODO TESTE: os nomes ficam só neste navegador.
+  SCRIPT_URL: "https://script.google.com/macros/s/AKfycbw38S3By2VfnzSmjAECBmshfznUQsBo6AxuUTlEU-QSAb6-r1F6TJmW6S6YVev7WT6tjg/exec",
+
+  // Senha da área dos noivos no MODO TESTE. Com o Apps Script, a senha é a definida em Code.gs.
+  SENHA_TESTE: "noivos"
+};
+
+/* ============================================================
+   Site
+   ============================================================ */
+const $ = (id) => document.getElementById(id);
+const EVENTO = new Date(CONFIG.DATA_EVENTO);
+const MODO_TESTE = !CONFIG.SCRIPT_URL;
+
+/* --- informações do evento --- */
+(function fillInfo(){
+  $("intro").textContent = CONFIG.INTRO;
+  $("info-local").textContent = CONFIG.LOCAL;
+  if (isNaN(EVENTO)) return;
+  const dia = EVENTO.toLocaleDateString("pt-BR", {day:"2-digit", month:"long", year:"numeric", timeZone:"America/Sao_Paulo"});
+  const hora = EVENTO.toLocaleTimeString("pt-BR", {hour:"2-digit", minute:"2-digit", timeZone:"America/Sao_Paulo"}).replace(":", "h");
+  $("info-data").textContent = dia;
+  $("info-hora").textContent = hora;
+  $("countdown-sub").textContent = "até o nosso grande dia — " + dia;
+})();
+
+/* --- contagem regressiva --- */
+(function countdown(){
+  if (isNaN(EVENTO)) return;
+  const pad = (n) => String(n).padStart(2, "0");
+  function tick(){
+    const diff = EVENTO - Date.now();
+    if (diff <= 0){
+      $("countdown").style.display = "none";
+      $("countdown-done").style.display = "block";
+      return false;
+    }
+    const s = Math.floor(diff / 1000);
+    $("c-d").textContent = Math.floor(s / 86400);
+    $("c-h").textContent = pad(Math.floor(s % 86400 / 3600));
+    $("c-m").textContent = pad(Math.floor(s % 3600 / 60));
+    $("c-s").textContent = pad(s % 60);
+    return true;
+  }
+  if (tick()){
+    const id = setInterval(() => { if (!tick()) clearInterval(id); }, 1000);
+  }
+})();
+
+/* --- armazenamento: Google Apps Script ou localStorage (modo teste) --- */
+const LS_KEY = "convite-felipe-beatriz:confirmados";
+
+async function chamarScript(payload){
+  // text/plain evita o preflight de CORS, que o Apps Script não responde.
+  const res = await fetch(CONFIG.SCRIPT_URL, {
+    method: "POST",
+    headers: {"Content-Type": "text/plain;charset=utf-8"},
+    body: JSON.stringify(payload)
+  });
+  const data = await res.json();
+  if (!data.ok) throw new Error(data.erro || "Erro desconhecido");
+  return data;
+}
+
+async function salvarConfirmacao(nomes, recado){
+  if (MODO_TESTE){
+    const lista = JSON.parse(localStorage.getItem(LS_KEY) || "[]");
+    const quando = new Date().toISOString();
+    nomes.forEach((nome) => lista.push({nome, recado, quando}));
+    localStorage.setItem(LS_KEY, JSON.stringify(lista));
+    return;
+  }
+  await chamarScript({acao: "confirmar", nomes, recado});
+}
+
+async function buscarLista(senha){
+  if (MODO_TESTE){
+    if (senha !== CONFIG.SENHA_TESTE) throw new Error("Senha incorreta.");
+    return JSON.parse(localStorage.getItem(LS_KEY) || "[]");
+  }
+  return (await chamarScript({acao: "listar", senha})).lista;
+}
+
+/* --- formulário de confirmação --- */
+const form = $("rsvp-form");
+
+function mostrarErro(el, msg){
+  el.textContent = msg;
+  el.classList.toggle("show", !!msg);
+}
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  mostrarErro($("erro"), "");
+  const nomes = $("nomes").value.split("\n").map((n) => n.trim()).filter(Boolean);
+  if (!nomes.length){
+    mostrarErro($("erro"), "Por favor, escreva o nome de quem vai.");
+    return;
+  }
+  const btn = $("btn-enviar");
+  btn.disabled = true;
+  btn.textContent = "Enviando…";
+  try {
+    await salvarConfirmacao(nomes, $("recado").value.trim());
+    const primeiro = nomes[0].split(" ")[0];
+    $("confirmado-txt").textContent = nomes.length > 1
+      ? `Presença confirmada para ${nomes.length} pessoas! Obrigado, ${primeiro} — mal podemos esperar para ver vocês. 💛`
+      : `Presença confirmada! Obrigado, ${primeiro} — mal podemos esperar para ver você. 💛`;
+    form.style.display = "none";
+    $("confirmado").classList.add("show");
+  } catch (err){
+    mostrarErro($("erro"), "Não foi possível enviar agora. Tente novamente em instantes.");
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Confirmar presença";
+  }
+});
+
+$("btn-outra").addEventListener("click", () => {
+  form.reset();
+  $("confirmado").classList.remove("show");
+  form.style.display = "";
+  $("nomes").focus();
+});
+
+/* --- área dos noivos --- */
+const painel = $("admin-panel");
+
+function abrirPainel(){
+  painel.classList.toggle("show");
+  if (painel.classList.contains("show")) $("admin-senha").focus();
+}
+$("admin-toggle").addEventListener("click", abrirPainel);
+if (location.hash === "#noivos") abrirPainel();
+
+$("admin-login").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  mostrarErro($("admin-erro"), "");
+  try {
+    renderLista(await buscarLista($("admin-senha").value));
+  } catch (err){
+    mostrarErro($("admin-erro"), MODO_TESTE || /senha/i.test(err.message) ? "Senha incorreta." : "Não foi possível carregar a lista.");
+  }
+});
+
+function renderLista(lista){
+  const box = $("admin-lista");
+  box.innerHTML = "";
+  box.style.display = "block";
+  $("admin-login").style.display = "none";
+
+  if (MODO_TESTE){
+    const n = document.createElement("div");
+    n.className = "notice";
+    n.textContent = "Modo teste: estes nomes existem só neste navegador.";
+    box.appendChild(n);
+  }
+
+  const count = document.createElement("div");
+  count.className = "count";
+  count.textContent = lista.length === 1 ? "1 pessoa confirmada" : `${lista.length} pessoas confirmadas`;
+  box.appendChild(count);
+
+  if (!lista.length){
+    const vazio = document.createElement("div");
+    vazio.className = "empty";
+    vazio.textContent = "Ninguém confirmou ainda.";
+    box.appendChild(vazio);
+  } else {
+    const ul = document.createElement("ul");
+    lista.forEach((item) => {
+      const li = document.createElement("li");
+      const esq = document.createElement("span");
+      esq.textContent = item.nome;
+      if (item.recado){
+        const r = document.createElement("span");
+        r.className = "msg";
+        r.textContent = "“" + item.recado + "”";
+        esq.appendChild(r);
+      }
+      const quando = document.createElement("span");
+      quando.className = "when";
+      const d = new Date(item.quando);
+      quando.textContent = isNaN(d) ? "" : d.toLocaleDateString("pt-BR", {day:"2-digit", month:"2-digit"});
+      li.append(esq, quando);
+      ul.appendChild(li);
+    });
+    box.appendChild(ul);
+  }
+
+  const acoes = document.createElement("div");
+  acoes.className = "admin-actions";
+  const copiar = document.createElement("button");
+  copiar.type = "button";
+  copiar.textContent = "Copiar nomes";
+  copiar.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(lista.map((i) => i.nome).join("\n"));
+      copiar.textContent = "Copiado!";
+    } catch (_){
+      copiar.textContent = "Não foi possível copiar";
+    }
+  });
+  const atualizar = document.createElement("button");
+  atualizar.type = "button";
+  atualizar.textContent = "Atualizar";
+  atualizar.addEventListener("click", async () => {
+    try { renderLista(await buscarLista($("admin-senha").value)); } catch (_){}
+  });
+  acoes.append(copiar, atualizar);
+  box.appendChild(acoes);
+}
+</script>
+</body>
+</html>
